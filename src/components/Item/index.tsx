@@ -1,5 +1,7 @@
 import React, { memo, useContext, useReducer } from 'react';
 import { IContext, MyContext } from '../..';
+import withClickDisappear from '../../hoc/WithClickDisappear';
+import Text from '../Text'
 import './item.css';
 
 interface ItemProps {
@@ -31,6 +33,8 @@ const initialState: IState = {
   counter: 0,
 };
 
+const TextClickDisappear = withClickDisappear(Text)
+
 const Item = ({ id, value, onChange }: ItemProps) => {
   const { state: stateStore, dispatch: dispatchStore } = useContext(MyContext) as IContext
   const { name } = stateStore
@@ -40,7 +44,8 @@ const Item = ({ id, value, onChange }: ItemProps) => {
   const { counter } = state;
   return (
     <li className='item'>
-      <span className='fade-out text-animation'>Rendered</span>
+      <Text className='fade-out text-animation' text='Rendered' />
+      <TextClickDisappear text='Click will disappear!'/>
       <div>
         <button
           onClick={() => {
