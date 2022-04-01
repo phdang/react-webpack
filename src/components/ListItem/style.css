@@ -11,3 +11,7 @@ h1 {
   margin: 0;
   list-style-type: none;
 }
+
+.input-text {
+  margin: 12px 0;
+}

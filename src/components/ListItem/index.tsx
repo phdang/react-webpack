@@ -5,7 +5,8 @@ import Item from '../Item';
 import './style.css';
 
 const ListItem = () => {
-  const { text } = useContext(MyContext) as IContext
+  const { state, dispatch: dispatchStore } = useContext(MyContext) as IContext;
+  const { name, text } = state;
   const [items, setItem] = useState([
     { value: '' },
     { value: '' },
@@ -23,7 +24,16 @@ const ListItem = () => {
   );
   return (
     <div>
-      <h1>{ text }</h1>
+      <h1>{text.value}</h1>
+      <p>{name.value}</p>
+      <input
+        className='input-text'
+        type='text'
+        value={text.value}
+        onChange={(e) => {
+          dispatchStore({ type: 'CHANGE_TEXT', payload: e.target.value });
+        }}
+      />
       <div>{JSON.stringify(items)}</div>
       <ul className='list-item'>
         {items.length &&

@@ -32,8 +32,9 @@ const initialState: IState = {
 };
 
 const Item = ({ id, value, onChange }: ItemProps) => {
-  const { name } = useContext(MyContext) as IContext;
-  console.log(`${name} is pass from context`);
+  const { state: stateStore, dispatch: dispatchStore } = useContext(MyContext) as IContext
+  const { name } = stateStore
+  console.log(`${name.value} is passed from context`);
   console.log('RENDERED!');
   const [state, dispatch] = useReducer(reducer, initialState);
   const { counter } = state;
@@ -60,8 +61,8 @@ const Item = ({ id, value, onChange }: ItemProps) => {
       <input
         type='text'
         value={value}
-        onChange={(e) => onChange(id, e.target.value)}
-      ></input>
+        onChange={(e) => {onChange(id, e.target.value); dispatchStore({type: 'CHANGE_NAME', payload: e.target.value})}}
+      />
     </li>
   );
 };

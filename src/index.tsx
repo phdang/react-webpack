@@ -1,18 +1,20 @@
-import React, { createContext } from 'react';
+import React, { createContext, useReducer } from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import ListItem from './components/ListItem';
+import { initialState, rootReducer, TStateStore, IStoreAction } from './reducer';
 
 export interface IContext {
-  name: string
-  text: string
+  state: TStateStore;
+  dispatch: React.Dispatch<IStoreAction>;
 }
 
-export const MyContext = createContext<IContext|null>(null);
+export const MyContext = createContext<IContext | null>(null);
 
 const App = () => {
-  const contextData = { name: 'Dang', text: 'This is so great!' };
+  const [state, dispatch] = useReducer(rootReducer, initialState);
+  const store = {state, dispatch}
   return (
-    <MyContext.Provider value={contextData}>
+    <MyContext.Provider value={store}>
       <ListItem />
     </MyContext.Provider>
   );

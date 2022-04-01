@@ -4,5 +4,5 @@ const multiply = (a: number, b: number) => {
 }
 
 export {
-  multiply
+  multiply,
 }
